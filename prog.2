@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <ctype.h>
+#define max 10
+char stack[max];
+char postfix[max];
+int top=-1;
+int op1;
+int op2;
+int res;
+bool is_Empty(){
+    if (top==-1)
+        return true;
+    return false;
+}
+bool is_Full(){
+    if (top==max-1)
+        return true;
+    return false;
+}
+char peek(){
+    if(is_Empty()){
+        return true;
+    }
+    else{
+        return stack[top];
+    }
+}
+void push(char ch){
+    if(is_Full()){
+        printf("Stack overflow");
+    }
+    else{
+        top++;
+        stack[top]=ch;
+    }
+}
+char pop(){
+    if(is_Empty()){
+        printf("Stack Underflow");
+    }
+    else{
+        return stack[top--];
+    }
+}
+int precedence(char ch){
+    if (ch=='^'){
+        return 3;
+    }
+    else if (ch=='*'||ch=='/'){
+        return 2;
+    }
+    else if (ch=='-'||ch=='+'){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+void infix_postfix(char infix[]){
+    int i,j=0;
+    char ch;
+    push('#');
+    for(i;infix[i]!='\0';i++){
+        ch=infix[i];
+        if(isalnum(ch)){
+            postfix[j++]=ch;
+        }
+        else if(ch=='('){
+                    push(ch);
+                }
+        else if(ch==')'){
+            while(!is_Empty()&&(peek()!='(')){
+                postfix[j++]=pop();
+            }
+            pop();
+        }
+        else{
+            while(!is_Empty()&&precedence(peek())>=precedence(ch)){
+                postfix[j++]=pop();
+            }
+            push(ch);
+        }
+    }
+    while (!is_Empty()&&peek()!='#'){
+        postfix[j++]=pop();
+    }
+    postfix[j]='\0';
+    printf("The postfix expression is %s \n",postfix);
+}
+char main(){
+    char infix[max];
+    while(1){
+    printf("Enter a infix expression \n");
+    scanf("%s",infix);
+    infix_postfix(infix);
+}
+}
