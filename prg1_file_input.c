@@ -8,12 +8,18 @@ int stack[MAX];
 
 
 bool is_empty() {
-    return top == -1;
+    if(top==-1){
+        return true
+    }
+    return false
 }
 
 
 bool is_full() {
-    return top == MAX - 1;
+    if(top==MAX-1){
+        return true
+    }
+    return false
 }
 
 
