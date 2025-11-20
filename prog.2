@@ -5,9 +5,6 @@
 char stack[max];
 char postfix[max];
 int top=-1;
-int op1;
-int op2;
-int res;
 bool is_Empty(){
     if (top==-1)
         return true;
@@ -20,7 +17,7 @@ bool is_Full(){
 }
 char peek(){
     if(is_Empty()){
-        return true;
+        return '#';
     }
     else{
         return stack[top];
@@ -60,8 +57,9 @@ int precedence(char ch){
 void infix_postfix(char infix[]){
     int i,j=0;
     char ch;
+    top=-1;
     push('#');
-    for(i;infix[i]!='\0';i++){
+    for(int i=0;infix[i]!='\0';i++){
         ch=infix[i];
         if(isalnum(ch)){
             postfix[j++]=ch;
@@ -88,11 +86,25 @@ void infix_postfix(char infix[]){
     postfix[j]='\0';
     printf("The postfix expression is %s \n",postfix);
 }
-char main(){
+/*int main(){
     char infix[max];
     while(1){
     printf("Enter a infix expression \n");
     scanf("%s",infix);
     infix_postfix(infix);
 }
+return 0;
+}*/
+int main(){
+    FILE *fp;
+    fp=fopen("input.txt","r");
+    if(fp==NULL){
+        printf("File is not opened");
+        return 1;
+    }
+    char infix[50];
+    while(fscanf(fp,"%s",infix)!=EOF){
+        infix_postfix(infix);
+    }
+    return 0;
 }
