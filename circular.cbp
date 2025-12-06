@@ -1,0 +1,30 @@
+int main() {
+    int choice;
+    while (1) {
+        printf("\n--- Singly Linked List Menu ---\n");
+        printf("1. Create Linked List\n");
+        printf("2. Insert at Beginning\n");
+        printf("3. Insert at End\n");
+        printf("4. Insert at Position\n");
+        printf("5. Delete from Beginning\n");
+        printf("6. Delete from End\n");
+        printf("7. Delete from Position\n");
+        printf("8. Display\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: create(); break;
+            case 2: insert_begin(); break;
+            case 3: insert_end(); break;
+            case 4: insert_pos(); break;
+            case 5: delete_begin(); break;
+            case 6: delete_end(); break;
+            case 7: delete_pos(); break;
+            case 8: display(); break;
+            case 9: exit(0);
+            default: printf("Invalid choice\n");
+        }
+    }
+}
